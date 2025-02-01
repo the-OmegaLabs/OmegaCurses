@@ -19,8 +19,8 @@ style.textContent = `
             transform 0.3s ease,
             width 0.25s,
             height 0.5s,
-            left 0.075s,
-            top 0.075s,
+            left 0.1s,
+            top 0.1s,
             backdrop-filter 0.5s,
             background-color 0.2s;
     }
@@ -35,16 +35,16 @@ document.addEventListener('mousemove', (e) => {
     cancelAnimationFrame(animationFrameId);
     
     animationFrameId = requestAnimationFrame(() => {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+            cursor.style.opacity = '0.2';
+        }, 1000);
+        
         cursor.style.opacity = '0.9';
         cursor.style.transform = 'translate(-50%, -50%) scale(1)';
         cursor.style.left = `${e.clientX}px`;
         cursor.style.top = `${e.clientY}px`;
 
-        clearTimeout(timeoutId);
-        timeoutId = setTimeout(() => {
-            cursor.style.zIndex = '-9999';
-            cursor.style.opacity = '0.2';
-        }, 1000);
 
         const hoveredElement = document.elementFromPoint(e.x, e.y);
         const link = hoveredElement?.closest('a');
